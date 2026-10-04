@@ -1,0 +1,19 @@
+# Angular
+node_modules/
+dist/
+.angular/
+
+# .NET
+bin/
+obj/
+.vs/
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Secrets
+.env
+.env.*
+!.env.example
