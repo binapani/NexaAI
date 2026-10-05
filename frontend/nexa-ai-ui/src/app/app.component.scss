@@ -1,0 +1,98 @@
+
+.app {
+  min-height: 100vh;
+  background: #f4f6fb;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 32px;
+  background: #172554;
+  color: white;
+
+  h1 {
+    margin: 0;
+  }
+
+  span {
+    color: #cbd5e1;
+  }
+}
+
+.chat {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 24px;
+}
+
+.messages {
+  min-height: 350px;
+}
+
+.welcome {
+  padding: 40px 0;
+  text-align: center;
+  color: #475569;
+}
+
+.message {
+  max-width: 75%;
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: white;
+  overflow-wrap: anywhere;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &.user {
+    margin-left: auto;
+    background: #dbeafe;
+  }
+
+  &.assistant {
+    margin-right: auto;
+    border: 1px solid #e2e8f0;
+  }
+}
+
+.composer {
+  display: flex;
+  gap: 12px;
+  position: sticky;
+  bottom: 0;
+  padding: 16px 0;
+  background: #f4f6fb;
+
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 0 24px;
+    border: 0;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.error {
+  color: #b91c1c;
+}

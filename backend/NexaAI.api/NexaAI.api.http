@@ -1,0 +1,6 @@
+@NexaAI.api_HostAddress = http://localhost:5276
+
+GET {{NexaAI.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

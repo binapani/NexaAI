@@ -1,0 +1,43 @@
+
+<div class="app">
+  <header class="header">
+    <h1>NexaAI</h1>
+    <span>AI Assistant Platform</span>
+  </header>
+
+  <main class="chat">
+    <div class="messages">
+      <div class="welcome" >
+        <!-- *ngIf="messages.length === 0 -->
+        <h2>Welcome to NexaAI</h2>
+        <p>Send your first message to test our API.</p>
+      </div>
+
+      <div
+        *ngFor="let item of messages"
+        class="message"
+        [class.user]="item.role === 'user'"
+        [class.assistant]="item.role === 'assistant'">
+        <strong>{{ item.role === 'user' ? 'You' : 'NexaAI' }}</strong>
+        <p>{{ item.content }}</p>
+      </div>
+
+      <p *ngIf="loading">NexaAI is thinking...</p>
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </div>
+
+    <form class="composer" (ngSubmit)="sendMessage()">
+      <input
+        type="text"
+        name="message"
+        [(ngModel)]="message"
+        placeholder="Ask NexaAI something..."
+        [disabled]="loading"
+        required />
+
+      <button type="submit" [disabled]="loading || !message.trim()">
+        Send
+      </button>
+    </form>
+  </main>
+</div>
