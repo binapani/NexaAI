@@ -6,6 +6,9 @@ dist/
 # .NET
 bin/
 obj/
+*.db
+*.db-shm
+*.db-wal
 .vs/
 
 # Python

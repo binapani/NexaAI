@@ -91,6 +91,51 @@ The frontend communicates with the ASP.NET Core API. The .NET backend forwards c
 
 ## 💻 Local Development
 
+### Daily Progress API
+
+The ASP.NET Core API stores one daily progress entry per local user and entry date in SQLite. Each entry includes tasks and statuses, completed work, blockers, tomorrow's priorities, notes, and UTC creation/update timestamps. The initial local configuration uses `backend/NexaAI.Api/progress.db`; this file is ignored by Git.
+
+From `backend/NexaAI.Api`, install the EF Core 8 command-line tool once, then create and apply the database migration:
+
+```powershell
+dotnet tool install --global dotnet-ef --version 8.0.26
+dotnet ef migrations add InitialProgressSchema
+dotnet ef database update
+dotnet run
+```
+
+If `dotnet-ef` is already installed at another major version, update it to 8.0.26 before running these commands. EF migrations are versioned schema changes: `migrations add` creates migration code from the current entity model, while `database update` applies pending migrations to the configured SQLite database. Review and commit migration files; do not commit the local `.db` file.
+
+In Development, Swagger is available at the API's `/swagger` URL. The progress endpoints accept and return task status names as strings (`Pending`, `InProgress`, `Completed`, or `Blocked`). `GET /api/progress/today` returns 404 if today's entry has not been created. `GET /api/progress/history` returns earlier entries ordered newest first and supports `from`, `to`, `limit` (1-100, default 30), and `offset` query parameters.
+
+Example request body for `POST /api/progress` or `PUT /api/progress/{id}`:
+
+```json
+{
+  "entryDate": "2026-10-06",
+  "tasks": [
+    {
+      "title": "Implement SQLite persistence",
+      "status": "Completed"
+    },
+    {
+      "title": "Review API validation",
+      "status": "InProgress"
+    }
+  ],
+  "workCompleted": "Added the progress entry persistence model.",
+  "blockers": "",
+  "prioritiesForTomorrow": [
+    {
+      "description": "Add targeted API tests"
+    }
+  ],
+  "notes": ""
+}
+```
+
+This first version is intentionally unauthenticated and scoped to one stable local user. The progress service depends on an `IProgressUserContext`, which can be replaced with an authenticated identity provider when authentication is added. Progress CRUD does not call the Python AI service.
+
 ### Prerequisites
 
 - .NET 8 SDK
